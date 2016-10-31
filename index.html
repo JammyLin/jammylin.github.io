@@ -165,14 +165,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="hdu2011-多项式求和"><a href="#hdu2011-多项式求和" class="headerlink" title="hdu2011 多项式求和"></a>hdu2011 多项式求和</h3><p>```C++</p>
+        <h3 id="hdu2011-多项式求和"><a href="#hdu2011-多项式求和" class="headerlink" title="hdu2011 多项式求和"></a>hdu2011 多项式求和<br></h3><p>```C++</p>
 <p>#include<stdio.h></stdio.h></p>
 <p>#include<iostream></iostream></p>
-<p>#include<math.h><br>using namespace std;<br>double result(double);<br>int main(){<br>   int m,n,i;<br>   double count,d;<br>   scanf(“%d”,&amp;m);<br>   while(m–){<br>    scanf(“%d”,&amp;n);<br>    count=0;<br>    for(i=1;i&lt;=n;i++){<br>        d=result(i);<br>        count+=d;<br>    }<br>    printf(“%.2lf\n”,count);<br>   }<br>   return 0;<br>}<br>double result(double a){<br>   double c;<br>   int b;<br>   b=pow(-1,a-1);<br>   c=(1.0/a)*b;<br>   return c;<br>}<br>```<br></math.h></p>
-<h3 id="hdu2012-素数判定"><a href="#hdu2012-素数判定" class="headerlink" title="hdu2012 素数判定"></a>hdu2012 素数判定</h3><p>```C++</p>
+<p>#include<math.h><br>using namespace std;<br>double result(double);<br>int main(){<br>   int m,n,i;<br>   double count,d;<br>   scanf(“%d”,&amp;m);<br>   while(m–){<br>    scanf(“%d”,&amp;n);<br>    count=0;<br>    for(i=1;i&lt;=n;i++){<br>        d=result(i);<br>        count+=d;<br>    }<br>    printf(“%.2lf\n”,count);<br>   }<br>   return 0;<br>}<br>double result(double a){<br>   double c;<br>   int b;<br>   b=pow(-1,a-1);<br>   c=(1.0/a)*b;<br>   return c;<br>}</math.h></p>
+<p>```<br><br></p>
+<h3 id="hdu2012-素数判定"><a href="#hdu2012-素数判定" class="headerlink" title="hdu2012 素数判定"></a>hdu2012 素数判定<br></h3><p>```C++</p>
 <p>#include<stdio.h></stdio.h></p>
 <p>#include<iostream></iostream></p>
-<p>#include<math.h><br>using namespace std;<br>int main(){<br>   int x,y,i,j,a,t,k;<br>   while(scanf(“%d %d”,&amp;x,&amp;y)!=EOF,x||y){<br>    if(x&gt;y){<br>         t=x;<br>         x=y;<br>         y=t;<br>    }<br>    k=1;<br>    for(i=x;i&lt;=y;i++){<br>        a=i*i+i+41;<br>        for(j=2;j&lt;=int(sqrt(a));j++){<br>            if(a%j==0){<br>                k=0;<br>                break;<br>            }<br>        }<br>        if(k==0){<br>            break;<br>        }<br>    }<br>    if(k){<br>        printf(“OK\n”);<br>    }<br>    else{<br>        printf(“Sorry\n”);<br>    }<br>   }<br>    return 0;<br>}<br>```<br></math.h></p>
+<p>#include<math.h><br>using namespace std;<br>int main(){<br>   int x,y,i,j,a,t,k;<br>   while(scanf(“%d %d”,&amp;x,&amp;y)!=EOF,x||y){<br>    if(x&gt;y){<br>         t=x;<br>         x=y;<br>         y=t;<br>    }<br>    k=1;<br>    for(i=x;i&lt;=y;i++){<br>        a=i*i+i+41;<br>        for(j=2;j&lt;=int(sqrt(a));j++){<br>            if(a%j==0){<br>                k=0;<br>                break;<br>            }<br>        }<br>        if(k==0){<br>            break;<br>        }<br>    }<br>    if(k){<br>        printf(“OK\n”);<br>    }<br>    else{<br>        printf(“Sorry\n”);<br>    }<br>   }<br>    return 0;<br>}<br>```<br><br></math.h></p>
 
       
     </div>
