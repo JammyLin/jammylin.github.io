@@ -24,7 +24,7 @@ reop:Your_git_io_url是这样修改的repository: git@github.com:JammyLin/jammyl
 reop:Your_git_io_url是这样修改的repository: git@github.com:JammyLin/jammylin.github.io  
 
 然后就是模">
-<meta property="og:updated_time" content="2016-10-31T12:20:17.280Z">
+<meta property="og:updated_time" content="2016-10-31T12:28:11.118Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo+github搭建经历和过程">
 <meta name="twitter:description" content="经历了一天多的操作，各种错误等，终于弄好了，在这写下搭建过程中会遇到的错误和自己犯的毛病。刚开始一系列准备在这里里面有说到，包括工具啦，要注册的账号啦等等，我也是按这里面去准备的，建议先把工具安装完再开始搭建。
@@ -187,7 +187,8 @@ reop:Your_git_io_url是这样修改的repository: git@github.com:JammyLin/jammyl
 <blockquote>
 <p>reop:Your_git_io_url是这样修改的<br>repository: git@github.com:JammyLin/jammylin.github.io  </p>
 </blockquote>
-<h2 id="然后就是模板了，自己去找一个自己喜欢的模板，看模板的介绍需要这么配置，跟着配置，然后看自己需要哪些配置修改下就好了。"><a href="#然后就是模板了，自己去找一个自己喜欢的模板，看模板的介绍需要这么配置，跟着配置，然后看自己需要哪些配置修改下就好了。" class="headerlink" title="然后就是模板了，自己去找一个自己喜欢的模板，看模板的介绍需要这么配置，跟着配置，然后看自己需要哪些配置修改下就好了。"></a>然后就是模板了，自己去找一个自己喜欢的模板，看模板的介绍需要这么配置，跟着配置，然后看自己需要哪些配置修改下就好了。<br></h2><p>接下来弄好ssh。<br></p>
+<p>然后就是模板了，自己去找一个自己喜欢的模板，看模板的介绍需要这么配置，跟着配置，然后看自己需要哪些配置修改下就好了。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><br></h2><p>接下来弄好ssh。<br></p>
 <ul>
 <li><p>如果是第一次设置git的ssh：</p>
 <blockquote>
@@ -207,16 +208,17 @@ reop:Your_git_io_url是这样修改的repository: git@github.com:JammyLin/jammyl
 </blockquote>
 </li>
 </ul>
-<p>如果本来就有ssh私钥输入ssh-add -D清除原有私钥<br>然后去github账户里面的setting设置下ssh<br>最后输入ssh -T git@github.com测试下  </p>
-<h2 id="如果有Hi-XXX-那就是成功了。"><a href="#如果有Hi-XXX-那就是成功了。" class="headerlink" title="如果有Hi,XXX.那就是成功了。"></a>如果有Hi,XXX.那就是成功了。<br></h2><p>当弄好后hexo d却遇到Please tell me who you are<br>那就依次输入下面的命令:</p>
+<p>如果本来就有ssh私钥输入ssh-add -D清除原有私钥<br>然后去github账户里面的setting设置下ssh<br>最后输入ssh -T git@github.com测试下<br>如果有Hi,XXX.那就是成功了。</p>
+<h2 id="-1"><a href="#-1" class="headerlink" title=""></a><br></h2><p>当弄好后hexo d却遇到Please tell me who you are<br>那就依次输入下面的命令:</p>
 <blockquote>
 <p>1.git init<br>2.git config –global user.name “name”<br>3.git config –global user.email “email”<br>4.git add *<br>5.git commit -m “some init msg”  </p>
 </blockquote>
-<h2 id="就可以hexo-d成功了。"><a href="#就可以hexo-d成功了。" class="headerlink" title="就可以hexo d成功了。"></a>就可以hexo d成功了。<br></h2><p>如果hexo d后Deployer失败，那就尝试下执行<br>npm install hexo-deployer-git  </p>
-<h2 id="如果还不行，那直接把blog文件夹删了，里面的东西备份下，重新建一个blog，再拷贝回去hexo-d应该就可以了。"><a href="#如果还不行，那直接把blog文件夹删了，里面的东西备份下，重新建一个blog，再拷贝回去hexo-d应该就可以了。" class="headerlink" title="如果还不行，那直接把blog文件夹删了，里面的东西备份下，重新建一个blog，再拷贝回去hexo d应该就可以了。"></a>如果还不行，那直接把blog文件夹删了，里面的东西备份下，重新建一个blog，再拷贝回去hexo d应该就可以了。<br></h2><p>如果遇到git错误：<br>Fatal: Not a git repository (or any of the parent directories): .git  </p>
-<h2 id="那就是没有-git目录输入git-init就行了。"><a href="#那就是没有-git目录输入git-init就行了。" class="headerlink" title="那就是没有.git目录输入git init就行了。"></a>那就是没有.git目录输入git init就行了。<br></h2><p>如果遇到Page build failed: Missing submodule。  </p>
-<h2 id="那你就把blog里面的东西备份了，然后原blog删了，github上的repository也删了，然后重建个repository如前面网站操作就行了。"><a href="#那你就把blog里面的东西备份了，然后原blog删了，github上的repository也删了，然后重建个repository如前面网站操作就行了。" class="headerlink" title="那你就把blog里面的东西备份了，然后原blog删了，github上的repository也删了，然后重建个repository如前面网站操作就行了。"></a>那你就把blog里面的东西备份了，然后原blog删了，github上的repository也删了，然后重建个repository如前面网站操作就行了。<br></h2><p>现在，差不多全弄好了，感觉yourname.github.io太长了，想绑定自己买的阿里云等的域名，点击<a href="http://www.z16388.win/2016/09/09/给Github-Pages绑定阿里云域名/" target="_blank" rel="external">这里</a>就可以。<br>然后在source文件夹中新建一个CNAME文件（无后缀名），然后用文本编辑器打开，在首行添加你的网站域名，如<a href="http://xxxx.com，注意前面没有http://，也没有www，然后使用hexo" target="_blank" rel="external">http://xxxx.com，注意前面没有http://，也没有www，然后使用hexo</a> d -g上传部署。  </p>
-<h2 id="这里说的主要是阿里云的，如果是其他的域名，这样操作无效那就百度看看怎么操作。"><a href="#这里说的主要是阿里云的，如果是其他的域名，这样操作无效那就百度看看怎么操作。" class="headerlink" title="这里说的主要是阿里云的，如果是其他的域名，这样操作无效那就百度看看怎么操作。"></a>这里说的主要是阿里云的，如果是其他的域名，这样操作无效那就百度看看怎么操作。<br></h2><p>最后，差不多全操作完毕了。如果想知道<a href="http://www.z16388.win/2016/09/09/Markdown常用语法/" target="_blank" rel="external">markdown常用语法</a>和<a href="http://www.z16388.win/2016/09/09/hexo常用命令/" target="_blank" rel="external">hexo常用命令</a>，这博客里面都有写，当然，要更详细的百度就好了。<br></p>
+<p>就可以hexo d成功了。</p>
+<h2 id="-2"><a href="#-2" class="headerlink" title=""></a><br></h2><p>如果hexo d后Deployer失败，那就尝试下执行<br>npm install hexo-deployer-git<br>如果还不行，那直接把blog文件夹删了，里面的东西备份下，重新建一个blog，再拷贝回去hexo d应该就可以了。</p>
+<h2 id="-3"><a href="#-3" class="headerlink" title=""></a><br></h2><p>如果遇到git错误：<br>Fatal: Not a git repository (or any of the parent directories): .git<br>那就是没有.git目录输入git init就行了。</p>
+<h2 id="-4"><a href="#-4" class="headerlink" title=""></a><br></h2><p>如果遇到Page build failed: Missing submodule。<br>那你就把blog里面的东西备份了，然后原blog删了，github上的repository也删了，然后重建个repository如前面网站操作就行了。</p>
+<h2 id="-5"><a href="#-5" class="headerlink" title=""></a><br></h2><p>现在，差不多全弄好了，感觉yourname.github.io太长了，想绑定自己买的阿里云等的域名，点击<a href="http://www.z16388.win/2016/09/09/给Github-Pages绑定阿里云域名/" target="_blank" rel="external">这里</a>就可以。<br>然后在source文件夹中新建一个CNAME文件（无后缀名），然后用文本编辑器打开，在首行添加你的网站域名，如<a href="http://xxxx.com，注意前面没有http://，也没有www，然后使用hexo" target="_blank" rel="external">http://xxxx.com，注意前面没有http://，也没有www，然后使用hexo</a> d -g上传部署。<br>这里说的主要是阿里云的，如果是其他的域名，这样操作无效那就百度看看怎么操作。</p>
+<h2 id="-6"><a href="#-6" class="headerlink" title=""></a><br></h2><p>最后，差不多全操作完毕了。如果想知道<a href="http://www.z16388.win/2016/09/09/Markdown常用语法/" target="_blank" rel="external">markdown常用语法</a>和<a href="http://www.z16388.win/2016/09/09/hexo常用命令/" target="_blank" rel="external">hexo常用命令</a>，这博客里面都有写，当然，要更详细的百度就好了。<br></p>
 <h1 id="总结一句话，善用百度。"><a href="#总结一句话，善用百度。" class="headerlink" title="总结一句话，善用百度。"></a>总结一句话，善用百度。</h1>
       
     </div>
