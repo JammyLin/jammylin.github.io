@@ -6,30 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="//jammylin.win">
-  <title>hexo+github搭建经历和过程 | JammyLin的博客</title>
+  <title>Tag: hexo | JammyLin的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="经历了一天多的操作，各种错误等，终于弄好了，在这写下搭建过程中会遇到的错误和自己犯的毛病。刚开始一系列准备在这里里面有说到，包括工具啦，要注册的账号啦等等，我也是按这里面去准备的，建议先把工具安装完再开始搭建。  
-注意！
-reop:Your_git_io_url是这样修改的repository: git@github.com:JammyLin/jammylin.github.io  
-
-然后就是">
-<meta property="og:type" content="article">
-<meta property="og:title" content="hexo+github搭建经历和过程">
-<meta property="og:url" content="//jammylin.win/2016/10/30/hexo-github搭建经历和过程/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="JammyLin的博客">
+<meta property="og:url" content="//jammylin.win/tags/hexo/index.html">
 <meta property="og:site_name" content="JammyLin的博客">
-<meta property="og:description" content="经历了一天多的操作，各种错误等，终于弄好了，在这写下搭建过程中会遇到的错误和自己犯的毛病。刚开始一系列准备在这里里面有说到，包括工具啦，要注册的账号啦等等，我也是按这里面去准备的，建议先把工具安装完再开始搭建。  
-注意！
-reop:Your_git_io_url是这样修改的repository: git@github.com:JammyLin/jammylin.github.io  
-
-然后就是">
-<meta property="og:updated_time" content="2016-10-31T10:39:54.574Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hexo+github搭建经历和过程">
-<meta name="twitter:description" content="经历了一天多的操作，各种错误等，终于弄好了，在这写下搭建过程中会遇到的错误和自己犯的毛病。刚开始一系列准备在这里里面有说到，包括工具啦，要注册的账号啦等等，我也是按这里面去准备的，建议先把工具安装完再开始搭建。  
-注意！
-reop:Your_git_io_url是这样修改的repository: git@github.com:JammyLin/jammylin.github.io  
-
-然后就是">
+<meta name="twitter:title" content="JammyLin的博客">
   
     <link rel="alternative" href="/atom.xml" title="JammyLin的博客" type="application/atom+xml">
   
@@ -161,150 +145,54 @@ reop:Your_git_io_url是这样修改的repository: git@github.com:JammyLin/jammyl
 </nav>
 
       <div class="body-wrap">
-        <article id="post-hexo-github搭建经历和过程" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      hexo+github搭建经历和过程
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2016" class="archive-year">2016</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2016/10/30/hexo-github搭建经历和过程/" class="archive-article-date">
+  	<time datetime="2016-10-30T08:53:03.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-30</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2016/10/30/hexo-github搭建经历和过程/">hexo+github搭建经历和过程</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>经历了一天多的操作，各种错误等，终于弄好了，在这写下搭建过程中会遇到的错误和自己犯的毛病。<br>刚开始一系列准备在<a href="http://www.z16388.win/2016/09/13/hexo-github博客搭建教程/" target="_blank" rel="external">这里</a>里面有说到，包括工具啦，要注册的账号啦等等，我也是按这里面去准备的，建议先把工具安装完再开始搭建。  </p>
-<h1 id="注意！"><a href="#注意！" class="headerlink" title="注意！"></a>注意！</h1><blockquote>
-<p>reop:Your_git_io_url是这样修改的<br>repository: git@github.com:JammyLin/jammylin.github.io  </p>
-</blockquote>
-<p>然后就是模板了，自己去找一个自己喜欢的模板，看模板的介绍需要这么配置，跟着配置，然后看自己需要哪些配置修改下就好了。 </p>
-<hr>
-<p>接下来弄好ssh。</p>
-<ul>
-<li><p>如果是第一次设置git的ssh：</p>
-<blockquote>
-<p>  $ git config –global user.name “name”<br>  $ git config –global user.email “email”</p>
-</blockquote>
-</li>
-<li><p>生成密钥</p>
-<blockquote>
-<p>$ ssh-keygen -t rsa -C “email”</p>
-</blockquote>
-</li>
-</ul>
-<p>如果不需要密码，直接3个回车<br>然后得到两个文件：id_rsa和id_rsa.pub。<br>如果不是第一次，就选择overwrite.</p>
-<ul>
-<li>添加密钥到ssh-agent<blockquote>
-<p>输入ssh-add<br>如果Could not open a connection to your authentication agent<br>那就依次输入1.exec ssh-agent bash<br>2.eval ssh-agent -s<br>3.ssh-add “C:\Users\Administrator.ssh\id_rsa”<br>引号中的路径就是你私匙文件的路径，路径需要使用英文双引号包裹。</p>
-</blockquote>
-</li>
-</ul>
-<p>如果本来就有ssh私钥输入ssh-add -D清除原有私钥<br>然后去github账户里面的setting设置下ssh<br>最后输入ssh -T git@github.com测试下<br>如果有Hi,XXX.那就是成功了</p>
-<hr>
-<p>当弄好后hexo d却遇到Please tell me who you are<br>那就依次输入下面的命令:</p>
-<blockquote>
-<p>1.git init<br>2.git config –global user.name “name”<br>3.git config –global user.email “email”<br>4.git add *<br>5.git commit -m “some init msg”  </p>
-</blockquote>
-<p>就可以hexo d成功了</p>
-<hr>
-<p>如果hexo d后Deployer失败，那就尝试下执行<br>npm install hexo-deployer-git<br>如果还不行，那直接把blog文件夹删了，里面的东西备份下，重新建一个blog，再拷贝回去hexo d应该就可以了。</p>
-<hr>
-<p>如果遇到git错误：<br>Fatal: Not a git repository (or any of the parent directories): .git<br>那就是没有.git目录输入git init就行了。</p>
-<hr>
-<p>如果遇到Page build failed: Missing submodule。<br>那你就把blog里面的东西备份了，然后原blog删了，github上的repository也删了，然后重建个repository如前面网站操作就行了。</p>
-<hr>
-<p>现在，差不多全弄好了，感觉yourname.github.io太长了，想绑定自己买的阿里云等的域名，点击<a href="http://www.z16388.win/2016/09/09/给Github-Pages绑定阿里云域名/" target="_blank" rel="external">这里</a>就可以。<br>然后在source文件夹中新建一个CNAME文件（无后缀名），然后用文本编辑器打开，在首行添加你的网站域名，如<a href="http://xxxx.com，注意前面没有http://，也没有www，然后使用hexo" target="_blank" rel="external">http://xxxx.com，注意前面没有http://，也没有www，然后使用hexo</a> d -g上传部署。<br>这里说的主要是阿里云的，如果是其他的域名，这样操作无效那就百度看看怎么操作。</p>
-<hr>
-<p>最后，差不多全操作完毕了。如果想知道<a href="http://www.z16388.win/2016/09/09/Markdown常用语法/" target="_blank" rel="external">markdown常用语法</a>和<a href="http://www.z16388.win/2016/09/09/hexo常用命令/" target="_blank" rel="external">hexo常用命令</a>，这博客里面都有写，当然，要更详细的百度就好了。  </p>
-<h1 id="总结一句话，善用百度。"><a href="#总结一句话，善用百度。" class="headerlink" title="总结一句话，善用百度。"></a>总结一句话，善用百度。</h1>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/10/30/hexo-github搭建经历和过程/" class="archive-article-date">
-  	<time datetime="2016-10-30T08:53:03.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-30</time>
-</a>
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
 	</div>
 
-      
+          
 
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2016/10/31/hdu-1089-1096/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          hdu 1089-1096
-        
-      </div>
-    </a>
   
   
-</nav>
+    </div></section>
+  
 
-
-
-
-<div class="share_jia">
-	<!-- JiaThis Button BEGIN -->
-	<div class="jiathis_style">
-		<span class="jiathis_txt">Share to: &nbsp; </span>
-		<a class="jiathis_button_facebook"></a> 
-	    <a class="jiathis_button_twitter"></a>
-	    <a class="jiathis_button_plus"></a> 
-	    <a class="jiathis_button_tsina"></a>
-		<a class="jiathis_button_cqq"></a>
-		<a class="jiathis_button_douban"></a>
-		<a class="jiathis_button_weixin"></a>
-		<a class="jiathis_button_tumblr"></a>
-    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
-	</div>
-	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
-	<!-- JiaThis Button END -->
-</div>
-
-
-
-
-
-
-<div class="duoshuo">
-	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="hexo-github搭建经历和过程" data-title="hexo+github搭建经历和过程" data-url="//jammylin.win/2016/10/30/hexo-github搭建经历和过程/"></div>
-	<!-- 多说评论框 end -->
-	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"a502311102143c8ef5fcdfc18879f563"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-	<!-- 多说公共JS代码 end -->
-</div>
-
-
-
+    
 
 
       </div>
@@ -327,9 +215,9 @@ reop:Your_git_io_url是这样修改的repository: git@github.com:JammyLin/jammyl
 		mathjax: false,
 		animate: true,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: true,
 		root: "/",
