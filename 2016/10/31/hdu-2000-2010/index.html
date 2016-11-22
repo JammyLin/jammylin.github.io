@@ -14,7 +14,7 @@
 <meta property="og:url" content="//jammylin.win/2016/10/31/hdu-2000-2010/index.html">
 <meta property="og:site_name" content="JammyLin的博客">
 <meta property="og:description" content="hdu2000 ASCII码排序12345678910111213141516171819202122232425262728293031#include&amp;lt;stdio.h&amp;gt;#include&amp;lt;iostream&amp;gt;using namespace std;int main()&amp;#123;   char a,b,c,d;   while(scanf(&quot;%c%c%c&quot;,&amp;amp;a,&amp;">
-<meta property="og:updated_time" content="2016-11-22T14:32:25.624Z">
+<meta property="og:updated_time" content="2016-11-22T16:26:04.739Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hdu 2000-2010">
 <meta name="twitter:description" content="hdu2000 ASCII码排序12345678910111213141516171819202122232425262728293031#include&amp;lt;stdio.h&amp;gt;#include&amp;lt;iostream&amp;gt;using namespace std;int main()&amp;#123;   char a,b,c,d;   while(scanf(&quot;%c%c%c&quot;,&amp;amp;a,&amp;">
@@ -37,7 +37,7 @@
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
 			
-			<img src="/assets/blogImg/tx.jpg" class="js-avatar show">
+			<img src="/assets/blogImg/tx.jpg" class="js-avatar">
 			
 		</a>
 
@@ -109,7 +109,7 @@
 		<header id="header" class="inner">
 			<div class="profilepic">
 				
-					<img src="/assets/blogImg/tx.jpg" class="js-avatar show">
+					<img src="/assets/blogImg/tx.jpg" class="js-avatar">
 				
 			</div>
 			<hgroup>
@@ -164,6 +164,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="hdu2000-ASCII码排序"><a href="#hdu2000-ASCII码排序" class="headerlink" title="hdu2000 ASCII码排序"></a>hdu2000 ASCII码排序</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">   <span class="keyword">char</span> a,b,c,d;</div><div class="line">   <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%c%c%c"</span>,&amp;a,&amp;b,&amp;c)!=EOF)</div><div class="line">   &#123;</div><div class="line">       getchar();</div><div class="line">        <span class="keyword">if</span>(a&gt;b)</div><div class="line">        &#123;</div><div class="line">            d=a;</div><div class="line">            a=b;</div><div class="line">            b=d;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(a&gt;c)</div><div class="line">        &#123;</div><div class="line">            d=a;</div><div class="line">            a=c;</div><div class="line">            c=d;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(b&gt;c)</div><div class="line">        &#123;</div><div class="line">            d=b;</div><div class="line">            b=c;</div><div class="line">            c=d;</div><div class="line">        &#125;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%c %c %c\n"</span>,a,b,c);</div><div class="line">   &#125;</div><div class="line">   <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<a id="more"></a>
 <p><br></p>
 <h3 id="hdu2001-计算两点间的距离"><a href="#hdu2001-计算两点间的距离" class="headerlink" title="hdu2001 计算两点间的距离"></a>hdu2001 计算两点间的距离</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;math.h&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">float</span> x1,y1,x2,y2,a,b,c,d,result;</div><div class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%f %f %f %f"</span>,&amp;x1,&amp;y1,&amp;x2,&amp;y2)!=EOF)</div><div class="line">    &#123;</div><div class="line">        c=x1-x2;</div><div class="line">        d=y1-y2;</div><div class="line">        a=<span class="built_in">pow</span>(c,<span class="number">2</span>);</div><div class="line">        b=<span class="built_in">pow</span>(d,<span class="number">2</span>);</div><div class="line">        result=<span class="built_in">sqrt</span>(a+b);</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"%0.2f\n"</span>,result);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><br></p>
