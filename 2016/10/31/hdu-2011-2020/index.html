@@ -344,16 +344,6 @@
 
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2016/10/31/hdu-2011-2020/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2016/10/31/hdu-2011-2020/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
           
 
           
@@ -475,7 +465,9 @@
 
   
     <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNDE3NC8xMDcxMQ=="></div>
     </div>
+
   
 
 
@@ -534,7 +526,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -547,7 +539,7 @@
                 
                 <div class="site-state-item site-state-tags">
                   
-                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>
@@ -576,7 +568,7 @@
 <script language="javascript">
 function show_date_time(){
 window.setTimeout("show_date_time()", 1000);
-BirthDay=new Date("01/19/2018 02:00:00");
+BirthDay=new Date("10/30/2016 15:00:00");
 today=new Date();
 timeold=(today.getTime()-BirthDay.getTime());
 sectimeold=timeold/1000
@@ -790,35 +782,24 @@ show_date_time();
 
 
   
-
-
-
-
-
-
-
-
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
-  <script type="text/javascript">
-    var GUEST = ['nick','mail','link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(item=>{
-      return GUEST.indexOf(item)>-1;
-    });
-    new Valine({
-        el: '#comments' ,
-        verify: true,
-        notify: true,
-        appId: 'X4f1RcvqoDuirlOuMiEI5ONg-gzGzoHsz',
-        appKey: '56pvEmIESiYcruFfTwI4NQCc',
-        placeholder: 'Just go go',
-        avatar:'mm',
-        guest_info:guest,
-        pageSize:'10' || 10,
-    });
-  </script>
+
+
+
+
+
+
+
 
 
 

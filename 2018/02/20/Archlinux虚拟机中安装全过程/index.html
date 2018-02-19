@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="Linux," />
+
+
+<meta name="description" content="我安装arch的大部分教程都是按照viseator其中步骤安装的，这里也是借鉴他的文章并简化或加工来写的，想要完整的推荐去看他的安装教程。当然，首推的还是官方wiki)，自带中文。(全文为虚拟机上操作，机器上操作请去看前面说的viseator的文章)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Archlinux虚拟机中安装全过程">
+<meta property="og:url" content="//jammylin.win/2018/02/20/Archlinux虚拟机中安装全过程/index.html">
+<meta property="og:site_name" content="JammyLin的博客">
+<meta property="og:description" content="我安装arch的大部分教程都是按照viseator其中步骤安装的，这里也是借鉴他的文章并简化或加工来写的，想要完整的推荐去看他的安装教程。当然，首推的还是官方wiki)，自带中文。(全文为虚拟机上操作，机器上操作请去看前面说的viseator的文章)">
+<meta property="og:image" content="http://ofsw24vtg.bkt.clouddn.com/%E6%96%87%E4%BB%B6%E5%A4%B9%E8%B7%AF%E5%BE%84">
+<meta property="og:image" content="http://ofsw24vtg.bkt.clouddn.com/1.jpg">
+<meta property="og:image" content="http://ofsw24vtg.bkt.clouddn.com/2.jpg">
+<meta property="og:image" content="http://ofsw24vtg.bkt.clouddn.com/3.jpg">
+<meta property="og:image" content="http://ofsw24vtg.bkt.clouddn.com/%E6%B7%BB%E5%8A%A0%E4%BB%8B%E8%B4%A8.png">
+<meta property="og:image" content="http://ofsw24vtg.bkt.clouddn.com/arch03.jpeg">
+<meta property="og:image" content="http://ofsw24vtg.bkt.clouddn.com/tty%E7%BB%88%E7%AB%AF%E7%95%8C%E9%9D%A2.png">
+<meta property="og:image" content="http://ofsw24vtg.bkt.clouddn.com/ping.png">
+<meta property="og:image" content="http://ofsw24vtg.bkt.clouddn.com/%E5%88%86%E5%8C%BA%E6%83%85%E5%86%B5.png">
+<meta property="og:image" content="http://ofsw24vtg.bkt.clouddn.com/%E5%88%9B%E5%BB%BA%E6%A0%B9%E7%9B%AE%E5%BD%951.png">
+<meta property="og:image" content="http://ofsw24vtg.bkt.clouddn.com/%E5%88%9B%E5%BB%BA%E6%A0%B9%E7%9B%AE%E5%BD%952.png">
+<meta property="og:image" content="http://ofsw24vtg.bkt.clouddn.com/%E6%8C%82%E8%BD%BD%E5%88%86%E5%8C%BA.png">
+<meta property="og:image" content="http://ofsw24vtg.bkt.clouddn.com/%E9%80%89%E6%8B%A9%E9%95%9C%E5%83%8F%E6%BA%90.png">
+<meta property="og:image" content="http://ofsw24vtg.bkt.clouddn.com/%E9%95%9C%E5%83%8F%E6%BA%90%E6%96%87%E4%BB%B6%E7%95%8C%E9%9D%A2.png">
+<meta property="og:image" content="http://ofsw24vtg.bkt.clouddn.com/%E9%85%8D%E7%BD%AEfstab.png">
+<meta property="og:image" content="http://ofsw24vtg.bkt.clouddn.com/chroot.png">
+<meta property="og:image" content="http://ofsw24vtg.bkt.clouddn.com/%E8%AE%BE%E7%BD%AE%E6%97%B6%E5%8C%BA.png">
+<meta property="og:image" content="http://ofsw24vtg.bkt.clouddn.com/%E8%AE%BE%E7%BD%AElocale1.png">
+<meta property="og:image" content="http://ofsw24vtg.bkt.clouddn.com/%E8%AE%BE%E7%BD%AElocale2.png">
+<meta property="og:image" content="http://ofsw24vtg.bkt.clouddn.com/%E8%AE%BE%E7%BD%AElocale3.png">
+<meta property="og:image" content="http://ofsw24vtg.bkt.clouddn.com/%E8%AE%BE%E7%BD%AElocale4.png">
+<meta property="og:image" content="http://ofsw24vtg.bkt.clouddn.com/%E8%AE%BE%E7%BD%AE%E4%B8%BB%E6%9C%BA%E5%90%8D1.png">
+<meta property="og:image" content="http://ofsw24vtg.bkt.clouddn.com/%E8%AE%BE%E7%BD%AE%E4%B8%BB%E6%9C%BA%E5%90%8D2.png">
+<meta property="og:image" content="http://ofsw24vtg.bkt.clouddn.com/%E8%AE%BE%E7%BD%AEroot%E5%AF%86%E7%A0%81.png">
+<meta property="og:image" content="http://ofsw24vtg.bkt.clouddn.com/grub.png">
+<meta property="og:image" content="http://ofsw24vtg.bkt.clouddn.com/swapfile1.png">
+<meta property="og:image" content="http://ofsw24vtg.bkt.clouddn.com/swapfile2.png">
+<meta property="og:image" content="http://ofsw24vtg.bkt.clouddn.com/%E6%96%B0%E5%BB%BA%E7%94%A8%E6%88%B7.png">
+<meta property="og:image" content="http://ofsw24vtg.bkt.clouddn.com/sudo%E9%85%8D%E7%BD%AE.png">
+<meta property="og:updated_time" content="2018-02-19T17:41:27.429Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Archlinux虚拟机中安装全过程">
+<meta name="twitter:description" content="我安装arch的大部分教程都是按照viseator其中步骤安装的，这里也是借鉴他的文章并简化或加工来写的，想要完整的推荐去看他的安装教程。当然，首推的还是官方wiki)，自带中文。(全文为虚拟机上操作，机器上操作请去看前面说的viseator的文章)">
+<meta name="twitter:image" content="http://ofsw24vtg.bkt.clouddn.com/%E6%96%87%E4%BB%B6%E5%A4%B9%E8%B7%AF%E5%BE%84">
+
+
+
+
+
+
+  <link rel="canonical" href="//jammylin.win/2018/02/20/Archlinux虚拟机中安装全过程/"/>
+
+
+  <title>Archlinux虚拟机中安装全过程 | JammyLin的博客</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">JammyLin的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">成长路上的记录</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="//jammylin.win/2018/02/20/Archlinux虚拟机中安装全过程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JammyLin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://ofsw24vtg.bkt.clouddn.com/tx.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JammyLin的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Archlinux虚拟机中安装全过程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-20T01:39:21+08:00">2018-02-20</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>我安装arch的大部分教程都是按照<a href="https://www.viseator.com/2017/05/17/arch_install/" target="_blank" rel="external">viseator</a>其中步骤安装的，这里也是借鉴他的文章并简化或加工来写的，想要完整的推荐去看他的安装教程。当然，首推的还是<a href="https://wiki.archlinux.org/index.php/Installation_guide_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87" target="_blank" rel="external">官方wiki</a>)，自带中文。(全文为虚拟机上操作，机器上操作请去看前面说的viseator的文章) <a id="more"></a> </p>
+<blockquote>
+<p>教程中所以的命令全部区分大小写</p>
+</blockquote>
+<hr>
+<h2 id="系统安装"><a href="#系统安装" class="headerlink" title="系统安装"></a>系统安装</h2><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><h5 id="镜像文件"><a href="#镜像文件" class="headerlink" title="镜像文件"></a>镜像文件</h5><p>首先需要准备镜像文件，可以去各大镜像站下载，我这现只有一个<a href="https://mirrors.tuna.tsinghua.edu.cn/" target="_blank" rel="external">清华大学开源软件镜像站</a> ，然后进入如图文件夹下载后缀为iso文件即可（日期选最新的最好）<img src="http://ofsw24vtg.bkt.clouddn.com/%E6%96%87%E4%BB%B6%E5%A4%B9%E8%B7%AF%E5%BE%84" alt="文件夹路径"> </p>
+<h5 id="虚拟机设置"><a href="#虚拟机设置" class="headerlink" title="虚拟机设置"></a>虚拟机设置</h5><p>后续由于我只讲在虚拟机（以Vbox为例）上面安装，所以磁盘准备就不讲了。</p>
+<ol>
+<li><p>新建VM，选择Archlinux 64bit类型（如果只是体验一下不装软件，8G储存够了，要是想装软件，建议增大）</p>
+</li>
+<li><p>打开设置进入系统选项。启动顺序去掉软驱，启用EFI自己选择勾不勾选（我没有勾选，并且感觉步骤少了些）</p>
+<p><img src="http://ofsw24vtg.bkt.clouddn.com/1.jpg" alt="系统主板设置"></p>
+<blockquote>
+<p>看别人说vbox对EFI的模拟还不是很完善，系统有很大几率无法自动引导而是进入UEFI Shell，但可以在这个shell中直接运行 *.efi文件来进入系统，真机上无此问题</p>
+</blockquote>
+</li>
+<li><p>切换到处理器选项中。处理器数量自己选择(要是感觉处理速度慢，按键延迟等，增加数量即可)，然后勾选启用PAE/NX（传递主板的电源管理到虚拟机，如不支持会造成开机时出现<code>intel_rapl: no valid rapl domains found in package 0</code> 告警，但是不影响）<img src="http://ofsw24vtg.bkt.clouddn.com/2.jpg" alt="系统处理器设置"></p>
+</li>
+<li><p>最后进入显示设置。显存大小自己选择，当然越大越好。启用3D加速（3D加速需要安装显示驱动之后才能打开，在此勾不勾无所谓）<img src="http://ofsw24vtg.bkt.clouddn.com/3.jpg" alt="显示设置"></p>
+</li>
+<li><p>添加刚下好的镜像<img src="http://ofsw24vtg.bkt.clouddn.com/%E6%B7%BB%E5%8A%A0%E4%BB%8B%E8%B4%A8.png" alt="添加介质"></p>
+</li>
+</ol>
+<p>至此，虚拟机设置完毕。</p>
+<h3 id="安装教程"><a href="#安装教程" class="headerlink" title="安装教程"></a>安装教程</h3><h4 id="进入tty终端界面"><a href="#进入tty终端界面" class="headerlink" title="进入tty终端界面"></a>进入tty终端界面</h4><p><img src="http://ofsw24vtg.bkt.clouddn.com/arch03.jpeg" alt="启动界面"></p>
+<p>进入这个界面后选择第一个选项，等到命令输入界面出来<img src="http://ofsw24vtg.bkt.clouddn.com/tty%E7%BB%88%E7%AB%AF%E7%95%8C%E9%9D%A2.png" alt="tty终端界面"></p>
+<h4 id="检查引导方式"><a href="#检查引导方式" class="headerlink" title="检查引导方式"></a>检查引导方式</h4><p>如果没勾选启用EFI，那就是以BIOS方式引导，否则为EFI方式引导，这引导方式后续有用</p>
+<h4 id="联网"><a href="#联网" class="headerlink" title="联网"></a>联网</h4><p>arch基本上都需要联网来下载需要的组件，所以首先先连接网络。</p>
+<ul>
+<li><p>如果是有线网且路由器支持DHCP（基本上没有不支持的了吧），输入以下命令获取ip地址</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dhcpcd</div></pre></td></tr></table></figure>
+<p>然后ping百度看网是否正常</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ping www.baidu.com</div></pre></td></tr></table></figure>
+<p>如果如图就是正常，使用Ctrl+c可终止当前正在执行的命令</p>
+<p><img src="http://ofsw24vtg.bkt.clouddn.com/ping.png" alt="ping"></p>
+</li>
+</ul>
+<ul>
+<li><p>如果是无线网，输入以下命令连接无线</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wifi-menu</div></pre></td></tr></table></figure>
+<p>然而，虚拟网网络好像相当于有线网</p>
+</li>
+</ul>
+<h4 id="更新系统时间"><a href="#更新系统时间" class="headerlink" title="更新系统时间"></a>更新系统时间</h4><p>执行以下命令，没有提示即成功</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">timedatectl <span class="built_in">set</span>-ntp <span class="literal">true</span></div></pre></td></tr></table></figure>
+<h4 id="分区与格式化"><a href="#分区与格式化" class="headerlink" title="分区与格式化"></a>分区与格式化</h4><p>由于是虚拟机上操作，这步就没有电脑上那么多担忧了。由于我这并没有启用EFI，所以就不说EFI的方法了，如果启用了。。。那就去开头推荐的博客看吧。</p>
+<h5 id="查看目前分区情况"><a href="#查看目前分区情况" class="headerlink" title="查看目前分区情况"></a>查看目前分区情况</h5><p>执行以下命令</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fdisk -l</div></pre></td></tr></table></figure>
+<p><img src="http://ofsw24vtg.bkt.clouddn.com/%E5%88%86%E5%8C%BA%E6%83%85%E5%86%B5.png" alt="分区情况"></p>
+<p>这是输出情况</p>
+<h5 id="创建根分区"><a href="#创建根分区" class="headerlink" title="创建根分区"></a>创建根分区</h5><p>1.执行以下命令</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fdisk /dev/sdx （请将sdx替换成你要操作的磁盘如sda sdb sdc等）</div></pre></td></tr></table></figure>
+<p>2.输入<code>o</code>来创建一个全新的<code>MBR</code>分区表</p>
+<p>3.输入<code>n</code>创建一个新的分区，数值等默认即可，4个回车</p>
+<p>4.输入<code>p</code>来查看新创建的分区</p>
+<p>5.输入<code>w</code>来将之前所有的操作写入磁盘生效，在这之前可以输入<code>p</code>来确认自己的分区表没有错误</p>
+<p>6.输入以下命令来格式化刚刚创建的根分区</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkfs.ext4 /dev/sdxY （请将的sdxY替换为刚创建的分区）</div></pre></td></tr></table></figure>
+<p><img src="http://ofsw24vtg.bkt.clouddn.com/%E5%88%9B%E5%BB%BA%E6%A0%B9%E7%9B%AE%E5%BD%951.png" alt="创建根目录1"></p>
+<p><img src="http://ofsw24vtg.bkt.clouddn.com/%E5%88%9B%E5%BB%BA%E6%A0%B9%E7%9B%AE%E5%BD%952.png" alt="创建根目录2"></p>
+<p>过程如图。</p>
+<h5 id="挂载分区"><a href="#挂载分区" class="headerlink" title="挂载分区"></a>挂载分区</h5><p>执行以下命令将根分区挂载到<code>/mnt</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mount /dev/sdxY /mnt （请将sdxY替换为之前创建的根分区）</div></pre></td></tr></table></figure>
+<p><img src="http://ofsw24vtg.bkt.clouddn.com/%E6%8C%82%E8%BD%BD%E5%88%86%E5%8C%BA.png" alt="挂载分区"></p>
+<h5 id="选择镜像源"><a href="#选择镜像源" class="headerlink" title="选择镜像源"></a>选择镜像源</h5><p>由于arch中的镜像源很多都是国外的地区，所以我们需要只保留中国地区的镜像源。我在安装途中查到一个简便的方法，不用编辑文件。执行以下命令即可</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed -i '/China/!&#123;n;/Server/s/^/#/&#125;;t;n' /etc/pacman.d/mirrorlist</div></pre></td></tr></table></figure>
+<p>执行后文件内容如图<img src="http://ofsw24vtg.bkt.clouddn.com/%E9%80%89%E6%8B%A9%E9%95%9C%E5%83%8F%E6%BA%90.png" alt="选择镜像源"></p>
+<p><img src="http://ofsw24vtg.bkt.clouddn.com/%E9%95%9C%E5%83%8F%E6%BA%90%E6%96%87%E4%BB%B6%E7%95%8C%E9%9D%A2.png" alt="文件内容"></p>
+<p>想要自己查看的话方法也很简单，输入命令</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nano /etc/pacman.d/mirrorlist</div></pre></td></tr></table></figure>
+<p>我感觉nano编辑比较方便，如果习惯vim可以将nano代替为vim。（nano下修改完按Ctrl+x，然后是问是否确认修改，按y，最后是修改文件名，不用操作，直接回车即可）</p>
+<h5 id="安装基础包"><a href="#安装基础包" class="headerlink" title="安装基础包"></a>安装基础包</h5><p>如小标题意思，安装archlinux基础包到磁盘上，基本上下载都是需要联网的。</p>
+<p>安装命令如下:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pacstrap /mnt base base-devel</div></pre></td></tr></table></figure>
+<p>emmm,虽然镜像源如上图所示只剩中国的了，但是有时候镜像源也可能会忽然下载不了，比如上面第一个中国源是上海大学的镜像源，但是我下载时候fail了。所以这个还是自己看哪个源好吧，我fail是直接将上海大学的改为了清华大学的镜像源。</p>
+<blockquote>
+<p>清华大学源</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; Server = http:<span class="comment">//mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch</span></div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<h5 id="配置Fstab"><a href="#配置Fstab" class="headerlink" title="配置Fstab"></a>配置Fstab</h5><p>生成自动挂载分区的fstab文件。执行如下命令:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">genfstab -L /mnt &gt;&gt; /mnt/etc/fstab</div></pre></td></tr></table></figure>
+<p>如果想要确认一遍是否生成输入这句命令即可</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat /mnt/etc/fstab</div></pre></td></tr></table></figure>
+<p><img src="http://ofsw24vtg.bkt.clouddn.com/%E9%85%8D%E7%BD%AEfstab.png" alt="配置fstab"></p>
+<p>如上图就是配置完成，/dev/sda1被挂载到根目录。</p>
+<h5 id="Chroot"><a href="#Chroot" class="headerlink" title="Chroot"></a>Chroot</h5><p><code>Chroot</code>意为<code>Change root</code>，相当于把操纵权交给我们新安装（或已经存在）的<code>Linux</code>系统，<strong>执行了这步以后，我们的操作都相当于在磁盘上新装的系统中进行</strong>。</p>
+<p>执行如下命令:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">arch-chroot /mnt</div></pre></td></tr></table></figure>
+<p><img src="http://ofsw24vtg.bkt.clouddn.com/chroot.png" alt="chroot"></p>
+<h5 id="设置时区"><a href="#设置时区" class="headerlink" title="设置时区"></a>设置时区</h5><p>执行以下命令设置时区为上海并生成相关文件</p>
+<ol>
+<li><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</div></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hwclock --systohc</div></pre></td></tr></table></figure>
+<p><img src="http://ofsw24vtg.bkt.clouddn.com/%E8%AE%BE%E7%BD%AE%E6%97%B6%E5%8C%BA.png" alt="设置时区"></p>
+</li>
+</ol>
+<h5 id="设置Locale"><a href="#设置Locale" class="headerlink" title="设置Locale"></a>设置Locale</h5><blockquote>
+<p>前面提到的博客中是下载了vim，但是我感觉nano比较好用，可能我不习惯vim的快捷键吧，要是要安装vim执行这句命令</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; pacman -S vim dialog wpa_supplicant ntfs<span class="number">-3</span>g networkmanager</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>设置使用的语音选项，执行如下命令编辑/etc/locale.gen文件:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nano /etc/locale.gen</div></pre></td></tr></table></figure>
+<p>在文件中找到<code>zh_CN.UTF-8 UTF-8</code> <code>zh_HK.UTF-8 UTF-8</code> <code>zh_TW.UTF-8 UTF-8</code> <code>en_US.UTF-8 UTF-8</code>这四行，去掉行首的#号，保存并退出。如图</p>
+<p><img src="http://ofsw24vtg.bkt.clouddn.com/%E8%AE%BE%E7%BD%AElocale1.png" alt="设置locale1"></p>
+<p><img src="http://ofsw24vtg.bkt.clouddn.com/%E8%AE%BE%E7%BD%AElocale2.png" alt="设置locale2"></p>
+<p>然后执行：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">locale-gen</div></pre></td></tr></table></figure>
+<p><img src="http://ofsw24vtg.bkt.clouddn.com/%E8%AE%BE%E7%BD%AElocale3.png" alt="设置locale3"></p>
+<p>打开（不存在时会创建）<code>/etc/locale.conf</code>文件：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nano /etc/locale.conf</div></pre></td></tr></table></figure>
+<p>在文件的第一行加入以下内容：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">LANG=en_US.UTF<span class="number">-8</span></div></pre></td></tr></table></figure>
+<p>保存并退出。</p>
+<p><img src="http://ofsw24vtg.bkt.clouddn.com/%E8%AE%BE%E7%BD%AElocale4.png" alt="设置locale4"></p>
+<h5 id="设置主机名"><a href="#设置主机名" class="headerlink" title="设置主机名"></a>设置主机名</h5><p>打开（不存在时会创建）<code>/etc/hostname</code>文件：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nano /etc/hostname</div></pre></td></tr></table></figure>
+<p>在文件第一行输入自己想取的主机名后保存并退出。</p>
+<p><img src="http://ofsw24vtg.bkt.clouddn.com/%E8%AE%BE%E7%BD%AE%E4%B8%BB%E6%9C%BA%E5%90%8D1.png" alt="设置主机名1"></p>
+<p>编辑<code>/etc/hosts</code>文件：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nano /etc/hosts</div></pre></td></tr></table></figure>
+<p>作如下修改（将<code>myhostname</code>替换成你自己设定的主机名）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>	localhost.localdomain	localhost</div><div class="line">::<span class="number">1</span>		localhost.localdomain	localhost</div><div class="line"><span class="number">127.0</span><span class="number">.1</span><span class="number">.1</span>	myhostname.localdomain	myhostname</div></pre></td></tr></table></figure>
+<p>如图<img src="http://ofsw24vtg.bkt.clouddn.com/%E8%AE%BE%E7%BD%AE%E4%B8%BB%E6%9C%BA%E5%90%8D2.png" alt="设置主机名2"></p>
+<h5 id="设置Root密码"><a href="#设置Root密码" class="headerlink" title="设置Root密码"></a>设置Root密码</h5><p><code>Root</code>是<code>Linux</code>中具有最高权限帐户，有些敏感的操作必须通过<code>Root</code>用户进行，比如使用<code>pacman</code>，我们之前进行所有的操作也都是以<code>Root</code>用户进行的，也正是因为<code>Root</code>的权限过高，如果使用不当会造成安全问题，所以我们之后会新建一个普通用户来进行日常的操作。在这里我们需要为<code>Root</code>帐户设置一个密码，执行如下命令：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">passwd</div></pre></td></tr></table></figure>
+<p>按提示设置并确认即可。</p>
+<p><img src="http://ofsw24vtg.bkt.clouddn.com/%E8%AE%BE%E7%BD%AEroot%E5%AF%86%E7%A0%81.png" alt="设置Root密码"></p>
+<blockquote>
+<p>官方Wiki和一些其他教程资料中的命令是以<code>#</code>或<code>$</code>开头的，这两个符号就对应着命令行中的命令提示符，<code>#</code>代表以<code>Root</code>用户执行命令，<code>$</code>代表以普通用户执行命令，平时使用教程中的命令时应该注意这一点。</p>
+</blockquote>
+<h5 id="安装Intel-ucode（非IntelCPU可以跳过此步骤）"><a href="#安装Intel-ucode（非IntelCPU可以跳过此步骤）" class="headerlink" title="安装Intel-ucode（非IntelCPU可以跳过此步骤）"></a>安装<code>Intel-ucode</code>（非<code>Intel</code>CPU可以跳过此步骤）</h5><p>执行如下命令即可</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pacman -S intel-ucode</div></pre></td></tr></table></figure>
+<blockquote>
+<p>安装包的命令格式为<code>pacman -S 包名</code>，<code>pacman</code>会自动检查这个包所需要的其他包（即为依赖）并一起装上。安装会向你确认一次是否安装,这个应该都看得懂。</p>
+</blockquote>
+<h5 id="安装Bootloader"><a href="#安装Bootloader" class="headerlink" title="安装Bootloader"></a>安装<code>Bootloader</code></h5><p>经常听说很多人因为引导问题导致系统安装失败，多数是因为教程没有统一或是过时的教程引起的，这里只要按照步骤来其实是不难的。这里我们安装最流行的<code>Grub2</code>。</p>
+<p>首先安装<code>os-prober</code>这个包，它可以配合<code>Grub</code>检测已经存在的系统，自动设置启动选项。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pacman -S os-prober</div></pre></td></tr></table></figure>
+<p>然后安装<code>grub</code>包：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pacman -S grub</div></pre></td></tr></table></figure>
+<p>部署<code>grub</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grub-install --target=i386-pc /dev/sdx （将sdx换成你安装的硬盘）</div></pre></td></tr></table></figure>
+<p>生成配置文件：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grub-mkconfig -o /boot/grub/grub.cfg</div></pre></td></tr></table></figure>
+<p><img src="http://ofsw24vtg.bkt.clouddn.com/grub.png" alt="grub"></p>
+<p><strong>如果你没有看到如图所示的提示信息，请仔细检查是否正确完成上面的过程。</strong></p>
+<blockquote>
+<p>如果报<code>warning failed to connect to lvmetad，falling back to device scanning.</code>错误。参照<a href="https://www.pckr.co.uk/arch-grub-mkconfig-lvmetad-failures-inside-chroot-install/" target="_blank" rel="external">这篇文章</a>，简单的方法是编辑<code>/etc/lvm/lvm.conf</code>这个文件，找到<code>use_lvmetad = 1</code>将<code>1</code>修改为<code>0</code>，保存，重新配置grub。</p>
+</blockquote>
+<h5 id="重启"><a href="#重启" class="headerlink" title="重启"></a>重启</h5><p>接下来，你需要进行重启来启动已经安装好的系统，执行如下命令：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">exit</span></div><div class="line">shutdown -h now</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意这个时候你可能会卡在有两行提示的地方无法正常关机，直接强退虚拟机即可，没有影响。然后去除ISO镜像，再次开机。</p>
+</blockquote>
+<p>至此，系统已经安装完毕了，只是还没有进行基本配置和安装图形界面，下面接着继续讲。（因为还没有创建用户，所以重启后用户是输root，创建后才是输用户名。）</p>
+<h2 id="基本配置与图形界面"><a href="#基本配置与图形界面" class="headerlink" title="基本配置与图形界面"></a>基本配置与图形界面</h2><h3 id="连接网络"><a href="#连接网络" class="headerlink" title="连接网络"></a>连接网络</h3><p>现在我们是在新安装的系统上进行操作，所以我们要重新联网，我们在之前安装系统时已经提前装好了相关的包。所以现在只要跟之前一样执行如下命令：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dhcpcd</div></pre></td></tr></table></figure>
+<h3 id="创建交换文件"><a href="#创建交换文件" class="headerlink" title="创建交换文件"></a>创建交换文件</h3><p>交换文件可以在物理内存不足的时候将部分内存暂存到交换文件中，避免系统由于内存不足而完全停止工作。</p>
+<p>之前我们通常采用单独一个分区的方式作为交换分区，现在更推荐采用交换文件的方式，更便于我们的管理。</p>
+<p>分配一块空间用于交换文件，执行：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fallocate -l <span class="number">512</span>M /swapfile</div></pre></td></tr></table></figure>
+<p>更改权限，执行：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod <span class="number">600</span> /swapfile</div></pre></td></tr></table></figure>
+<p>设置交换文件，执行：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkswap /swapfile</div></pre></td></tr></table></figure>
+<p>启用交换文件，执行：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">swapon /swapfile</div></pre></td></tr></table></figure>
+<p><img src="http://ofsw24vtg.bkt.clouddn.com/swapfile1.png" alt="swapfile1"></p>
+<p>最后我们需要编辑<code>/etc/fstab</code>为交换文件设置一个入口</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nano /etc/fstab</div></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>注意编辑fstab文件的时候要格外注意不要修改之前的内容，直接在最后新起一行加入以下内容</strong>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; /swapfile none swap defaults <span class="number">0</span> <span class="number">0</span></div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p><img src="http://ofsw24vtg.bkt.clouddn.com/swapfile2.png" alt="swapfile2"></p>
+<blockquote>
+<p>我对其只是为了美观，没对齐是没有事的。</p>
+</blockquote>
+<h3 id="新建用户"><a href="#新建用户" class="headerlink" title="新建用户"></a>新建用户</h3><p>在这之前所有操作都是以<code>root</code>用户的身份进行的，由于<code>root</code>的权限过高，日常使用<code>root</code>用户是不安全的。<code>Linux</code>为我们提供了强大的用户与组的权限管理，提高了整个系统的安全性。这里我们就来新建一个用户。</p>
+<p>执行以下命令来创建一个名为<code>username</code>的用户（请自行替换<code>username</code>为你的用户名）：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">useradd -m -G wheel username （请自行替换username为你的用户名）</div></pre></td></tr></table></figure>
+<blockquote>
+<p>在这里稍微解释一下各参数的含义：</p>
+<p><code>-m</code>：在创建时同时在<code>/home</code>目录下创建一个与用户名同名的文件夹，这个目录就是你的<strong>家目录</strong>啦！家目录有一个别名是<code>~</code>，你可以在任何地方使用<code>~</code>来代替家目录路径。这个神奇的目录将会用于存放你所有的个人资料、配置文件等所有跟系统本身无关的资料。这种设定带来了诸多优点：</p>
+<ul>
+<li>只要家目录不变，你重装系统后只需要重新安装一下软件包（它们一般不存放在家目录），然后所有的配置都会从家目录中读取，完全不用重新设置软件着。</li>
+<li>你可以在家目录不变的情况下更换你的发行版而不用重新配置你的环境。</li>
+<li>切换用户后所有的设置会从新的用户的家目录中读取，将不同用户的资料与软件设置等完全隔离。</li>
+<li>有些著名的配置文件比如<code>vim</code>的配置文件<code>~/.vimrc</code>，只要根据自己的使用习惯配置一次， 在另一个<code>Linux</code>系统下（例如你的服务器）把这个文件复制到家目录下，就可以完全恢复你的配置。</li>
+</ul>
+<p><code>-G wheel</code>：<code>-G</code>代表把用户加入一个组，对用户与组的概念感兴趣的同学可以自行查找有关资料学习。后面跟着的<code>wheel</code>就是加入的组名，至于为什么要加入这个组，后面会提到。</p>
+</blockquote>
+<p>为新用户设置一个密码，执行如下命令：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">passwd username （请自行替换username为你的用户名）</div></pre></td></tr></table></figure>
+<p><img src="http://ofsw24vtg.bkt.clouddn.com/%E6%96%B0%E5%BB%BA%E7%94%A8%E6%88%B7.png" alt="新建用户"></p>
+<h3 id="配置sudo"><a href="#配置sudo" class="headerlink" title="配置sudo"></a>配置sudo</h3><p>我们已经创建好了一个新的用户，以后我们将会使用这个用户来登录，那么如果我们需要执行一些只有<code>root</code>用户才能执行的命令（例如修改系统文件、安装软件包）怎么办？</p>
+<p><code>sudo</code>为我们提供了一个更快捷的办法。使用<code>sudo</code>，我们只要在需要<code>root</code>权权限执行的命令之前加上<code>sudo</code>就可以了，例如安装软件包：<code>sudo pacman -S something</code> 下面我们就来安装并配置<code>sudo</code>。</p>
+<p><code>sudo</code>本身也是一个软件包，所以我们需要通过<code>pacman</code>来安装：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pacman -S sudo</div></pre></td></tr></table></figure>
+<p>为刚才创建的用户添加<code>sudo</code>权限</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nano <span class="regexp">/etc/</span>sudoers</div></pre></td></tr></table></figure>
+<p>在 root ALL=(ALL) ALL 下面添加<br>用户名 ALL=(ALL) ALL </p>
+<p><img src="http://ofsw24vtg.bkt.clouddn.com/sudo%E9%85%8D%E7%BD%AE.png" alt="sudo配置"></p>
+<p>配置好<code>sudo</code>以后，我们进行一次重启，执行：<code>reboot</code></p>
+<p>注意登录后要重新进行联网操作（<code>sudo dhcpcd</code>）。</p>
+<h3 id="图形界面的安装"><a href="#图形界面的安装" class="headerlink" title="图形界面的安装"></a>图形界面的安装</h3><h4 id="显卡驱动的安装"><a href="#显卡驱动的安装" class="headerlink" title="显卡驱动的安装"></a>显卡驱动的安装</h4><p>执行：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo pacman -S 驱动包</div></pre></td></tr></table></figure>
+<p>官方仓库提供的驱动包:<br>通用———————————-xf86-video-vesa<br>intel———————————-xf86-video-intel<br>Geforce7+————————–xf86-video-nouveau<br>Geforce6/7————————-xf86-video-304xx</p>
+<p>这里只需要通用即可。</p>
+<h4 id="安装Xorg"><a href="#安装Xorg" class="headerlink" title="安装Xorg"></a>安装Xorg</h4><p><code>Xorg</code>是<code>Linux</code>下的一个著名的开源图形服务，我们的桌面环境需要<code>Xorg</code>的支持。</p>
+<p>执行如下命令安装<code>Xorg</code>及相关组件：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo pacman -S xorg</div></pre></td></tr></table></figure>
+<p>设置全部默认。</p>
+<h4 id="安装桌面环境"><a href="#安装桌面环境" class="headerlink" title="安装桌面环境"></a>安装桌面环境</h4><p><code>Linux</code>下有很多著名的桌面环境如<code>Xfce</code>、<code>KDE(Plasma)</code>、<code>Gnome</code>、<code>Unity</code>、<code>Deepin</code>等等，它们的外观、操作、设计理念等各方面都有所不同， 在它们之间的比较与选择网上有很多的资料可以去查。</p>
+<p>这里我选择的是KDE(Plasma),直接安装软件包组（包含了很多软件包）即可：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo pacman -S plasma kde-applications kde-l10n-zh_cn</div></pre></td></tr></table></figure>
+<p>设置依旧全部默认。</p>
+<blockquote>
+<p>更多桌面环境的安装指南的链接：<a href="https://wiki.archlinux.org/index.php/Desktop_environment#List_of_desktop_environments" target="_blank" rel="external">https://wiki.archlinux.org/index.php/Desktop_environment#List_of_desktop_environments</a></p>
+</blockquote>
+<h4 id="安装桌面管理器"><a href="#安装桌面管理器" class="headerlink" title="安装桌面管理器"></a>安装桌面管理器</h4><p>安装好了桌面环境包以后，我们需要安装一个图形化的桌面管理器来帮助我们登录并且选择我们使用的桌面环境，这里我推荐使用<code>sddm</code>。</p>
+<h5 id="安装sddm"><a href="#安装sddm" class="headerlink" title="安装sddm"></a>安装sddm</h5><p>执行：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo pacman -S sddm</div></pre></td></tr></table></figure>
+<h5 id="设置开机启动sddm服务"><a href="#设置开机启动sddm服务" class="headerlink" title="设置开机启动sddm服务"></a>设置开机启动sddm服务</h5><p>执行下面命令来设置开机启动<code>sddm</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo systemctl enable sddm</div></pre></td></tr></table></figure>
+<h3 id="配置网络"><a href="#配置网络" class="headerlink" title="配置网络"></a>配置网络</h3><p>到现在我们已经安装好了桌面环境，但是还有一件事情需要我们提前设置一下。由于我们之前使用的一直都是<code>netctl</code>这个自带的网络服务，而桌面环境使用的是<code>NetworkManager</code>这个网络服务，所以我们需要禁用<code>netctl</code>并启用<code>NetworkManager</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo systemctl disable netctl</div><div class="line">sudo systemctl enable NetworkManager</div></pre></td></tr></table></figure>
+<p>同时你可能需要安装工具栏工具来显示网络设置图标（某些桌面环境已经装了，但是为了保险可以再装一下）：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo pacman -S network-manager-applet</div></pre></td></tr></table></figure>
+<p>至此，只要重启电脑进入了桌面代表着已经安装成功了。</p>
+<p>如果你只是就这样安装着用，那后续的文章可以略过直接使用。</p>
+<p>如果打算更好的体验Arch，后续所说的应装的软件包或基础配置建议操作了。</p>
+<blockquote>
+<p>系统安装完后进入可能是英文的，设置中文的方法是打开左下角菜单然后选择应用(applications)，然后选设置(setting)，接着打开系统设置(system setting)，进去后找到区域设置(regional setting)，里面就有语言选项(language)了，然后重启即可</p>
+</blockquote>
+<h2 id="推荐的软件包与配置"><a href="#推荐的软件包与配置" class="headerlink" title="推荐的软件包与配置"></a>推荐的软件包与配置</h2><h3 id="添加archlinuxcn源（里面包含了很多中国人常用而官方仓库又没有的软件）"><a href="#添加archlinuxcn源（里面包含了很多中国人常用而官方仓库又没有的软件）" class="headerlink" title="添加archlinuxcn源（里面包含了很多中国人常用而官方仓库又没有的软件）"></a>添加archlinuxcn源（里面包含了很多中国人常用而官方仓库又没有的软件）</h3><p>以<code>root</code>权限打开编译<code>/etc/pacman.conf</code>，将下面这三行加入到文件末尾并保存：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[archlinuxcn]</div><div class="line">SigLevel = Never</div><div class="line">Server   =  http:<span class="comment">//repo.archlinuxcn.org/$arch</span></div></pre></td></tr></table></figure>
+<p>同步软件信息库：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo pacman -Syyu</div></pre></td></tr></table></figure>
+<p>安装<code>archlinuxcn-keyring</code>包导入 GPG key：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo pacman -S archlinuxcn-keyring</div></pre></td></tr></table></figure>
+<h3 id="Yaourt"><a href="#Yaourt" class="headerlink" title="Yaourt"></a>Yaourt</h3><p>arch拥有一个强大的用户库<code>aur</code> 即<a href="https://wiki.archlinux.org/index.php/Arch_User_Repository" target="_blank" rel="external">Arch User Repository</a>，为我们提供了官方包之外的各种软件包，一些闭源的软件包也可以在上面找到，极大地丰富了软件包的种类与数量，并可以配合<code>yaourt</code>这样的工具为用户省下大量安装、更新软件包的时间。</p>
+<p><code>yaourt</code>实际上也是一个软件包，我们可以把它看成是对<code>pacman</code>的包装，它兼容<code>pacman</code>的所有操作，不同是我们可以用它方便地安装与管理<code>AUR</code>中的包。</p>
+<p>安装<code>yaourt</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo pacman -Sy yaourt fakeroot</div></pre></td></tr></table></figure>
+<h3 id="滚动更新"><a href="#滚动更新" class="headerlink" title="滚动更新"></a>滚动更新</h3><p><code>archlinux</code>的更新机制是滚动更新，，也就是说<code>ArchLinux</code>的软件与内核会时刻与稳定版本保持一致，你所用的系统总是时刻保持最新的。</p>
+<p>这机制让使用arch的用户可以第一时间体验到西软件与内核，但是也有可能出错。虽然滚动更新的包可能因为没有经过完善的测试会导致系统不能工作种种问题，但是绝大部分情况下的更新都不会导致太大的问题。修复滚炸的系统和提交Bug信息也是<code>ArchLinux</code>用户的技能之一。</p>
+<p>滚动更新命令为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yaourt -Syu --aur</div></pre></td></tr></table></figure>
+<p><code>--aur</code>参数是检查并更新<code>AUR</code>包中的内容。</p>
+<h3 id="字体与输入法"><a href="#字体与输入法" class="headerlink" title="字体与输入法"></a>字体与输入法</h3><p>系统语言更改为中文后可能会出现乱码，这时候就需要安装一个中文字体来替代系统的默认语言了，毕竟谁也不想一直看乱码。</p>
+<p>中文字体推荐安装官方源中<code>noto-fonts-cjk</code> ，，中文输入法需要安装<code>fcitx</code>包与<code>fcitx-im</code>集合包以及支持包（这里我选择的是搜狗拼音）。</p>
+<p>字体安装命令</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo pacman -S noto-fonts-cjk</div></pre></td></tr></table></figure>
+<p>输入法</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo pacman -S fcitx fcitx-im fcitx-configtool</div><div class="line">sudo pacman -S fcitx-sogoupinyin</div></pre></td></tr></table></figure>
+<p>装完输入法以后需要修改<code>/etc/profile</code>文件，在文件开头加入三行：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> XMODIFIERS=<span class="string">"@im=fcitx"</span></div><div class="line"><span class="keyword">export</span> GTK_IM_MODULE=<span class="string">"fcitx"</span></div><div class="line"><span class="keyword">export</span> QT_IM_MODULE=<span class="string">"fcitx"</span></div></pre></td></tr></table></figure>
+<p>可以解决一些软件无法调出<code>fcitx</code>的问题。</p>
+<p>现在为止，字体输入法也有了，浏览器自带了，可以开始自己的arch之旅了。如果还想要安装什么软件，网上搜索都能找到（如果有的话），最后祝你们体验的开心。</p>
+<p>（　￣ー￣）ﾉ■☆■ヾ(￣ー￣　)</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    JammyLin
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="//jammylin.win/2018/02/20/Archlinux虚拟机中安装全过程/" title="Archlinux虚拟机中安装全过程">//jammylin.win/2018/02/20/Archlinux虚拟机中安装全过程/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/20/Linux各版本优缺点以及安装问题解决/" rel="next" title="Linux各版本优缺点以及安装问题解决">
+                <i class="fa fa-chevron-left"></i> Linux各版本优缺点以及安装问题解决
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNDE3NC8xMDcxMQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+	
+  </div>
+
+          
+        
+		 
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://ofsw24vtg.bkt.clouddn.com/tx.jpg"
+                alt="JammyLin" />
+            
+              <p class="site-author-name" itemprop="name">JammyLin</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+
+          <div id="days"></div>
+</script>
+<script language="javascript">
+function show_date_time(){
+window.setTimeout("show_date_time()", 1000);
+BirthDay=new Date("10/30/2016 15:00:00");
+today=new Date();
+timeold=(today.getTime()-BirthDay.getTime());
+sectimeold=timeold/1000
+secondsold=Math.floor(sectimeold);
+msPerDay=24*60*60*1000
+e_daysold=timeold/msPerDay
+daysold=Math.floor(e_daysold);
+e_hrsold=(e_daysold-daysold)*24;
+hrsold=setzero(Math.floor(e_hrsold));
+e_minsold=(e_hrsold-hrsold)*60;
+minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+seconds=setzero(Math.floor((e_minsold-minsold)*60));
+document.getElementById('days').innerHTML="已运行"+daysold+"天"+hrsold+"小时"+minsold+"分"+seconds+"秒";
+}
+function setzero(i){
+if (i<10)
+{i="0" + i};
+return i;
+}
+show_date_time();
+</script>
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#系统安装"><span class="nav-number">1.</span> <span class="nav-text">系统安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#准备工作"><span class="nav-number">1.1.</span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#镜像文件"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">镜像文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#虚拟机设置"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">虚拟机设置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装教程"><span class="nav-number">1.2.</span> <span class="nav-text">安装教程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#进入tty终端界面"><span class="nav-number">1.2.1.</span> <span class="nav-text">进入tty终端界面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检查引导方式"><span class="nav-number">1.2.2.</span> <span class="nav-text">检查引导方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#联网"><span class="nav-number">1.2.3.</span> <span class="nav-text">联网</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新系统时间"><span class="nav-number">1.2.4.</span> <span class="nav-text">更新系统时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分区与格式化"><span class="nav-number">1.2.5.</span> <span class="nav-text">分区与格式化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#查看目前分区情况"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">查看目前分区情况</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建根分区"><span class="nav-number">1.2.5.2.</span> <span class="nav-text">创建根分区</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#挂载分区"><span class="nav-number">1.2.5.3.</span> <span class="nav-text">挂载分区</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#选择镜像源"><span class="nav-number">1.2.5.4.</span> <span class="nav-text">选择镜像源</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装基础包"><span class="nav-number">1.2.5.5.</span> <span class="nav-text">安装基础包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置Fstab"><span class="nav-number">1.2.5.6.</span> <span class="nav-text">配置Fstab</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Chroot"><span class="nav-number">1.2.5.7.</span> <span class="nav-text">Chroot</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设置时区"><span class="nav-number">1.2.5.8.</span> <span class="nav-text">设置时区</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设置Locale"><span class="nav-number">1.2.5.9.</span> <span class="nav-text">设置Locale</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设置主机名"><span class="nav-number">1.2.5.10.</span> <span class="nav-text">设置主机名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设置Root密码"><span class="nav-number">1.2.5.11.</span> <span class="nav-text">设置Root密码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装Intel-ucode（非IntelCPU可以跳过此步骤）"><span class="nav-number">1.2.5.12.</span> <span class="nav-text">安装Intel-ucode（非IntelCPU可以跳过此步骤）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装Bootloader"><span class="nav-number">1.2.5.13.</span> <span class="nav-text">安装Bootloader</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#重启"><span class="nav-number">1.2.5.14.</span> <span class="nav-text">重启</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本配置与图形界面"><span class="nav-number">2.</span> <span class="nav-text">基本配置与图形界面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#连接网络"><span class="nav-number">2.1.</span> <span class="nav-text">连接网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建交换文件"><span class="nav-number">2.2.</span> <span class="nav-text">创建交换文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新建用户"><span class="nav-number">2.3.</span> <span class="nav-text">新建用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置sudo"><span class="nav-number">2.4.</span> <span class="nav-text">配置sudo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图形界面的安装"><span class="nav-number">2.5.</span> <span class="nav-text">图形界面的安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#显卡驱动的安装"><span class="nav-number">2.5.1.</span> <span class="nav-text">显卡驱动的安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装Xorg"><span class="nav-number">2.5.2.</span> <span class="nav-text">安装Xorg</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装桌面环境"><span class="nav-number">2.5.3.</span> <span class="nav-text">安装桌面环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装桌面管理器"><span class="nav-number">2.5.4.</span> <span class="nav-text">安装桌面管理器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#安装sddm"><span class="nav-number">2.5.4.1.</span> <span class="nav-text">安装sddm</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设置开机启动sddm服务"><span class="nav-number">2.5.4.2.</span> <span class="nav-text">设置开机启动sddm服务</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置网络"><span class="nav-number">2.6.</span> <span class="nav-text">配置网络</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#推荐的软件包与配置"><span class="nav-number">3.</span> <span class="nav-text">推荐的软件包与配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加archlinuxcn源（里面包含了很多中国人常用而官方仓库又没有的软件）"><span class="nav-number">3.1.</span> <span class="nav-text">添加archlinuxcn源（里面包含了很多中国人常用而官方仓库又没有的软件）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Yaourt"><span class="nav-number">3.2.</span> <span class="nav-text">Yaourt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#滚动更新"><span class="nav-number">3.3.</span> <span class="nav-text">滚动更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字体与输入法"><span class="nav-number">3.4.</span> <span class="nav-text">字体与输入法</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JammyLin</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
